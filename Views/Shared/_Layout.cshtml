@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title DD RIG Web</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styleheader", required: false)
+    <link href="~/Content/RigMonitoring/RigMonitor.css" rel="stylesheet" />
+    @*<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>*@
+    @*<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">*@
+    <link href="~/Content/dataTables.dataTables.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/Content/buttons.dataTables.css" rel="stylesheet" />
+    <link href="~/Content/uikit.min.css" rel="stylesheet" />
+    <link href="~/Content/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.uikit.css" rel="stylesheet" />
+    <link href="~/Content/buttons.dataTables.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.dataTables.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-3.7.1.js"></script>
+    <script src="~/Scripts/dataTables.js"></script>
+    <script src="~/Scripts/dataTables.buttons.js"></script>
+    <script src="~/Scripts/buttons.dataTables.js"></script>
+    <script src="~/Scripts/jszip.min.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/buttons.html5.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/shim.min.js"></script>
+    <script src="~/Scripts/scroller.bootstrap5.js"></script>
+    <script src="~/Scripts/dataTables.scroller.js"></script>
+    <script src="~/Scripts/pdfmake.min.js"></script>
+    <script src="~/Scripts/vfs_fonts.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/App.js"></script>
+    @*<script src="https://cdn.fusioncharts.com/fusiongrid/latest/fusiongrid.js"></script>*@
+    @*<link rel="stylesheet" href="https://cdn.fusioncharts.com/fusiongrid/latest/fusiongrid.css">*@
+</head>
+<body class="bg-light-purple d-flex flex-column flex-nowrap min-vh-100">
+
+            @{ String SelectedP = "";
+                SelectedP = ViewBag.Selected;
+            }
+           
+    <main class="container-fluid body-content pt-0 mt-0 mb-2 flex-grow-1">
+        @RenderBody()
+    </main>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/fusioncharts")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

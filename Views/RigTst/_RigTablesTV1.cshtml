@@ -1,0 +1,428 @@
+﻿@model List<List<DDRigWeb.Models.RigModel>>
+<div class="monitor-container">
+
+    <!-- First Group (A) -->
+    <div class="table-box">
+        <table>
+            <tr>
+                <th>TIMER</th>
+
+                <th>STATUS</th>
+
+                <th>STATUS</th>
+
+                <th>TIMER</th>
+
+            </tr>
+
+            @{
+                List<DDRigWeb.Models.RigModel> RigA = new List<DDRigWeb.Models.RigModel>();
+                List<DDRigWeb.Models.RigModel> RigB = new List<DDRigWeb.Models.RigModel>();
+                List<DDRigWeb.Models.RigModel> RigC = new List<DDRigWeb.Models.RigModel>();
+                List<DDRigWeb.Models.RigModel> RigD = new List<DDRigWeb.Models.RigModel>();
+                List<DDRigWeb.Models.RigModel> RigE = new List<DDRigWeb.Models.RigModel>();
+
+                RigA = Model[0];
+                RigB = Model[1];
+                RigC = Model[2];
+                RigD = Model[3];
+                RigE = Model[4];
+
+                int i = 0;
+            }
+
+            @for (i = 0; i < 9; i++)
+            {
+
+
+
+                <tr>
+
+                    <td id="@Html.Raw("countdownCell" + RigA[i].CellName)"
+                        data-start="@RigA[i].StopUpdate.ToString("yyyy-MM-ddTHH:mm:ss")"
+                        data-cell="@RigA[i].CellName"
+                        data-btn="@RigA[i].StatBtn"
+                        data-finf="@RigA[i].FirstFinish"
+                        style="font-size: 24px; font-weight: bold;">
+                    </td>
+
+
+                    <td>
+                        @{
+                            string bayLabel = RigA[i].CellName;
+
+
+
+                            if (RigA[i].StatBtn == "0")
+                            {
+
+                                <div id="@Html.Raw("BtnStat" + RigA[i].CellName)" class="Rectangle grey" title="@RigA[i].SerialNo1 : @RigA[i].SerialNo2"> <div class="TextComm">@bayLabel </div> </div>
+                            }
+                            else if (RigA[i].StatBtn == "1")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigA[i].CellName)" class="Rectangle orange" title="@RigA[i].SerialNo1 : @RigA[i].SerialNo2"> <div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigA[i].StatBtn == "2")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigA[i].CellName)" class="Rectangle cyan" title="@RigA[i].SerialNo1 : @RigA[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigA[i].StatBtn == "3")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigA[i].CellName)" class="Rectangle green" title="@RigA[i].SerialNo1 : @RigA[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigA[i].StatBtn == "4")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigA[i].CellName)" class="Rectangle orangered" title="@RigA[i].SerialNo1 : @RigA[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigA[i].StatBtn == "5")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigA[i].CellName)" class="Rectangle black" title="@RigA[i].SerialNo1 : @RigA[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                        }
+                    </td>
+
+                    <!-- Second B -->
+                    <td>
+                        @{
+
+                            bayLabel = RigB[i].CellName;
+
+                            if (RigB[i].StatBtn == "0")
+                            {
+
+                                <div id="@Html.Raw("BtnStat" + RigB[i].CellName)" class="Rectangle grey" title="@RigB[i].SerialNo1 : @RigB[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigB[i].StatBtn == "1")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigB[i].CellName)" class="Rectangle orange" title="@RigB[i].SerialNo1 : @RigB[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigB[i].StatBtn == "2")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigB[i].CellName)" class="Rectangle cyan" title="@RigB[i].SerialNo1 : @RigB[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigB[i].StatBtn == "3")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigB[i].CellName)" class="Rectangle green" title="@RigB[i].SerialNo1 : @RigB[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigB[i].StatBtn == "4")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigB[i].CellName)" class="Rectangle orangered" title="@RigB[i].SerialNo1 : @RigB[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigB[i].StatBtn == "5")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigB[i].CellName)" class="Rectangle black" title="@RigB[i].SerialNo1 : @RigB[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                        }
+
+                    </td>
+                    <td id="@Html.Raw("countdownCell" + RigB[i].CellName)"
+                        data-start="@RigB[i].StopUpdate.ToString("yyyy-MM-ddTHH:mm:ss")"
+                        data-cell="@RigB[i].CellName"
+                        data-btn="@RigB[i].StatBtn"
+                        style="font-size: 24px; font-weight: bold;">
+                    </td>
+                </tr>
+
+
+
+            }
+
+        </table>
+    </div>
+
+
+    <!-- Second Group (C) -->
+    <div class="table-box">
+        <table>
+            <tr>
+                <th>TIMER</th>
+
+                <th>STATUS</th>
+
+                <th>STATUS</th>
+
+                <th>TIMER</th>
+
+            </tr>
+            @for (i = 0; i < 9; i++)
+            {
+
+
+                <tr>
+                    <td id="@Html.Raw("countdownCell" + RigC[i].CellName)"
+                        data-start="@RigC[i].StopUpdate.ToString("yyyy-MM-ddTHH:mm:ss")"
+                        data-cell="@RigC[i].CellName"
+                        data-btn="@RigC[i].StatBtn"
+                        style="font-size: 24px; font-weight: bold;">
+                    </td>
+
+                    <td>
+                        @{
+                            string bayLabel = RigC[i].CellName;
+
+                            if (RigC[i].StatBtn == "0")
+                            {
+
+                                <div id="@Html.Raw("BtnStat" + RigC[i].CellName)" class="Rectangle grey" title="@RigC[i].SerialNo1 : @RigC[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigC[i].StatBtn == "1")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigC[i].CellName)" class="Rectangle orange" title="@RigC[i].SerialNo1 : @RigC[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigC[i].StatBtn == "2")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigC[i].CellName)" class="Rectangle cyan" title="@RigC[i].SerialNo1 : @RigC[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigC[i].StatBtn == "3")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigC[i].CellName)" class="Rectangle green" title="@RigC[i].SerialNo1 : @RigC[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigC[i].StatBtn == "4")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigC[i].CellName)" class="Rectangle orangered" title="@RigC[i].SerialNo1 : @RigC[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (RigC[i].StatBtn == "5")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigC[i].CellName)" class="Rectangle black" title="@RigC[i].SerialNo1 : @RigC[i].SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+
+                        }
+                    </td>
+
+                    <!-- Second -->
+                    <td>
+                        @{
+
+
+                            string bayLabelD = RigD[i].CellName;
+                            if (RigD[i].StatBtn == "0")
+                            {
+
+                                <div id="@Html.Raw("BtnStat" + RigD[i].CellName)" class="Rectangle grey" title="@RigD[i].SerialNo1 : @RigD[i].SerialNo2"><div class="TextComm">@bayLabelD </div></div>
+                            }
+                            else if (RigD[i].StatBtn == "1")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigD[i].CellName)" class="Rectangle orange" title="@RigD[i].SerialNo1 : @RigD[i].SerialNo2"><div class="TextComm">@bayLabelD </div></div>
+                            }
+                            else if (RigD[i].StatBtn == "2")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigD[i].CellName)" class="Rectangle cyan" title="@RigD[i].SerialNo1 : @RigD[i].SerialNo2"><div class="TextComm">@bayLabelD </div></div>
+                            }
+                            else if (RigD[i].StatBtn == "3")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigD[i].CellName)" class="Rectangle green" title="@RigD[i].SerialNo1 : @RigD[i].SerialNo2"><div class="TextComm">@bayLabelD </div></div>
+                            }
+                            else if (RigD[i].StatBtn == "4")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigD[i].CellName)" class="Rectangle orangered" title="@RigD[i].SerialNo1 : @RigD[i].SerialNo2"><div class="TextComm">@bayLabelD </div></div>
+                            }
+                            else if (RigD[i].StatBtn == "5")
+                            {
+                                <div id="@Html.Raw("BtnStat" + RigD[i].CellName)" class="Rectangle black" title="@RigD[i].SerialNo1 : @RigD[i].SerialNo2"><div class="TextComm">@bayLabelD </div></div>
+
+                            }
+
+                        }
+                    </td>
+
+                    <td id="@Html.Raw("countdownCell" + RigD[i].CellName)"
+                        data-start="@RigD[i].StopUpdate.ToString("yyyy-MM-ddTHH:mm:ss")"
+                        data-cell="@RigD[i].CellName"
+                        data-btn="@RigD[i].StatBtn"
+                        style="font-size: 24px; font-weight: bold;">
+                    </td>
+
+                </tr>
+
+            }
+
+
+        </table>
+    </div>
+
+    <!-- Third Group (E) -->
+    <div class="table-box">
+
+        <table>
+
+            <tr>
+                <th>TIMER</th>
+
+                <th>STATUS</th>
+
+
+            </tr>
+            @foreach (var m3 in RigE)
+            {
+
+
+                <tr>
+
+                    <td id="@Html.Raw("countdownCell" + m3.CellName)"
+                        data-start="@m3.StopUpdate.ToString("yyyy-MM-ddTHH:mm:ss")"
+                        data-cell="@m3.CellName"
+                        data-btn="@m3.StatBtn"
+                        style="font-size: 24px; font-weight: bold;">
+                    </td>
+
+                    <td>
+                        @{
+
+                            string bayLabel = m3.CellName;
+                            if (m3.StatBtn == "0")
+                            {
+
+                                <div id="@Html.Raw("BtnStat" + m3.CellName)" class="Rectangle grey" title="@m3.SerialNo1 : @m3.SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (m3.StatBtn == "1")
+                            {
+                                <div id="@Html.Raw("BtnStat" + m3.CellName)" class="Rectangle orange" title="@m3.SerialNo1 : @m3.SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (m3.StatBtn == "2")
+                            {
+                                <div id="@Html.Raw("BtnStat" + m3.CellName)" class="Rectangle cyan" title="@m3.SerialNo1 : @m3.SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (m3.StatBtn == "3")
+                            {
+                                <div id="@Html.Raw("BtnStat" + m3.CellName)" class="Rectangle green" title="@m3.SerialNo1 : @m3.SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (m3.StatBtn == "4")
+                            {
+                                <div id="@Html.Raw("BtnStat" + m3.CellName)" class="Rectangle orangered" title="@m3.SerialNo1 : @m3.SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+                            else if (m3.StatBtn == "5")
+                            {
+                                <div id="@Html.Raw("BtnStat" + m3.CellName)" class="Rectangle black" title="@m3.SerialNo1 : @m3.SerialNo2"><div class="TextComm">@bayLabel </div></div>
+                            }
+
+                        }
+                    </td>
+
+                </tr>
+
+            }
+        </table>
+    </div>
+</div>
+<script>
+
+
+      // Declare global variables ONCE
+    if (typeof activeCountdowns === 'undefined') {
+        var activeCountdowns = {}; // for countdown timers
+    }
+    if (typeof activeCountUps === 'undefined') {
+        var activeCountUps = {}; // for countdown timers
+    }
+    if (typeof isRefreshing === 'undefined') {
+        var isRefreshing = false; // for AJAX status refresh
+    }
+    function refreshStatuses() {
+        if (isRefreshing) return; // skip if previous request is still running
+       isRefreshing = true;
+
+        $.ajax({
+            url: '@Url.Action("RefreshBtn", "RigDashB")',
+            type: 'GET',
+            data: { lineid: "@ViewBag.lineid" },   // 👈 send parameter here
+            dataType: 'json',
+            success: function (data) {
+
+                //console.log(data[5]);
+                data.forEach(rig => {
+
+                    const rect = document.getElementById('BtnStat' + rig.CellName);
+                    if (!rect) {
+                        console.warn("Element not found: BtnStat" + rig.CellName);
+                        return; // skip only this rig
+                    }
+
+                    rect.className = "Rectangle"; // reset base
+
+// Always remove ALL blink classes
+rect.classList.remove("blink-blue", "blink-green", "blink-yellow");
+
+// Stop old countUp if status != 2
+if (rig.StatBtn !== "2" && activeCountUps[rig.CellName]) {
+    clearInterval(activeCountUps[rig.CellName]);
+    delete activeCountUps[rig.CellName];
+}
+
+// Apply new status
+switch (rig.StatBtn) {
+    case "0": rect.classList.add("grey"); break;
+    case "1": rect.classList.add("orange"); break;
+    case "2": rect.classList.add("cyan"); break;
+    case "3":
+        if (rig.FirstFinish === 'Y') {
+            rect.classList.add("blink-green");
+        } else {
+            rect.classList.add("green");
+        }
+        break;
+    case "4": rect.classList.add("orangered"); break;
+    case "5": rect.classList.add("black"); break;
+}
+
+                });
+            },
+            error: function () {
+                console.error('Failed to refresh statuses.');
+            },
+            complete: function () {
+                isRefreshing = false;
+            }
+        });
+    }
+
+// Refresh every 3000 seconds
+    $(document).ready(function () {
+        setInterval(refreshStatuses, 3000);
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".Rectangle").forEach(function (rect) {
+            rect.style.cursor = "pointer"; // show it's clickable
+
+            rect.addEventListener("click", function () {
+                const text = rect.getAttribute("title");
+                if (!text) return;
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    // Modern browsers (HTTPS / localhost)
+                    navigator.clipboard.writeText(text)
+                        .then(() => showCopied(rect, text))
+                        .catch(() => fallbackCopy(text, rect));
+                } else {
+                    // Always fallback on old/HTTP
+                    fallbackCopy(text, rect);
+                }
+            });
+        });
+
+        function fallbackCopy(text, rect) {
+            const tempInput = document.createElement("textarea");
+            tempInput.value = text;
+            tempInput.style.position = "fixed";  // avoid scrolling
+            tempInput.style.opacity = "0";
+            document.body.appendChild(tempInput);
+            tempInput.focus();
+            tempInput.select();
+            try {
+                document.execCommand("copy");
+                showCopied(rect, text);
+            } catch (err) {
+                alert("Copy failed: " + err);
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        function showCopied(rect, originalTitle) {
+            rect.setAttribute("title", "Copied!");
+            setTimeout(() => rect.setAttribute("title", originalTitle), 1000);
+        }
+    });
+
+
+</script>
+

@@ -1,0 +1,163 @@
+﻿@model List<List<DDRigWeb.Models.RigModel>>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RIG STATION MONITORING #2</title>
+
+
+</head>
+<body>
+    <h2>RIG STATION MONITORING 2</h2>
+    <br>
+
+    <div id="rig-tables-container">
+        @Html.Partial("_RigTablesTV2", Model)
+    </div>
+
+
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-color" style="background-color: grey;"></div>Empty</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: orange;"></div>Testing</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #03a9f4;"></div>Checking</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: green;"></div>Passed</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: orangered;"></div>Failed</div>
+        <div class="legend-item"><div class="legend-color" style="background-color: #333333;"></div>Locked</div>
+    </div>
+
+
+
+
+
+</body>
+</html>
+<script>
+
+
+    function autoRefresh(intervalSeconds) {
+        setInterval(() => {
+            location.reload();
+        }, intervalSeconds * 1000);
+    }
+    // Call with 180 seconds
+    autoRefresh(180);
+    initTableCountdowns(); // reinitialize timers
+    function startCountdown(startTimeStr, durationMinutes, displayElementId, btnStat) {
+        const startTime = new Date(startTimeStr);
+        const countdownDuration = durationMinutes * 60 * 1000;
+        const endTime = new Date(startTime.getTime() + countdownDuration);
+        const display = document.getElementById('countdownCell' + displayElementId);
+        if (!display) return;
+
+        // Clear old timer if exists
+        if (activeCountdowns[displayElementId]) {
+            clearInterval(activeCountdowns[displayElementId]);
+        }
+
+        activeCountdowns[displayElementId] = setInterval(() => {
+            const now = new Date();
+            const distance = endTime - now;
+
+            if (distance <= 0) {
+                clearInterval(activeCountdowns[displayElementId]);
+                display.innerHTML = "";
+                return;
+            }
+
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            display.innerHTML = minutes.toString().padStart(2, '0') + ":" + seconds.toString().padStart(2, '0');
+
+            // Blink yellow only if still status 1
+            if (distance <= 180000 && btnStat == '1') {
+                const rect = document.getElementById('BtnStat' + displayElementId);
+                if (rect && rect.classList.contains("orange")) {
+                    rect.classList.add("blink-yellow");
+                }
+            }
+        }, 1000);
+    }
+    function startCountUp(startTimeStr, durationMinutes, displayElementId, btnStat, FinF) {
+        if (btnStat == '2') // STATUS CHECKING BLUE
+        {
+            const startTime = new Date(startTimeStr);
+            const countdownDuration = durationMinutes * 60 * 1000;
+            const endTime = new Date(startTime.getTime() + countdownDuration);
+            const display = document.getElementById('countdownCell' + displayElementId);
+            if (!display) return;
+
+            // Clear old timer if exists
+            if (activeCountUps[displayElementId]) {
+                clearInterval(activeCountUps[displayElementId]);
+            }
+
+            activeCountUps[displayElementId] = setInterval(() => {
+                const now = new Date();
+                const distance = now - endTime;
+
+                if (distance <= 0) {
+                    clearInterval(activeCountUps[displayElementId]);
+                    display.innerHTML = "";
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Show H:MM:SS if >= 1 hour, otherwise MM:SS
+                let timeText = "";
+                if (hours > 0) {
+                    timeText = hours.toString().padStart(2, '0') + ":" +
+                        minutes.toString().padStart(2, '0') + ":" +
+                        seconds.toString().padStart(2, '0');
+                } else {
+                    timeText = minutes.toString().padStart(2, '0') + ":" +
+                        seconds.toString().padStart(2, '0');
+                }
+
+                display.innerHTML = timeText;
+                display.style.color = "black";
+
+                if (distance >= 70000 && btnStat == '2') {
+                    const rect = document.getElementById('BtnStat' + displayElementId);
+                    if (rect && rect.classList.contains("cyan")) {
+                       // rect.classList.add("blink-blue");
+                        display.style.color = "red";
+                    }
+                }
+            }, 1000);
+        } else if (btnStat == 3 && FinF == 'Y') {
+            const rect = document.getElementById('BtnStat' + displayElementId);
+            if (rect) rect.classList.add("blink-green");
+        }
+    }
+
+    function initTableCountdowns() {
+        document.querySelectorAll('[id^="countdownCell"]').forEach(cell => {
+            const startTime = cell.getAttribute('data-start');
+            const cellId = cell.getAttribute('data-cell');
+            const btnSta = cell.getAttribute('data-btn');
+            const FinF = cell.getAttribute('data-finf');
+            if (startTime && cellId) {
+                startCountdown(startTime, 0, cellId, btnSta);
+                startCountUp(startTime, 0, cellId, btnSta, FinF);
+            }
+        });
+    }
+    function refreshRigs() {
+    $.ajax({
+        url: '@Url.Action("RefreshTables", "RigDashB")',
+        type: 'GET',
+        data: { lineid: "@ViewBag.lineid" },   // 👈 send parameter here
+        success: function(data) {
+            $('#rig-tables-container').html(data);
+            initTableCountdowns(); // reinit countdowns
+        },
+        error: function() { console.error('Failed to refresh rig data'); }
+    });
+}
+    setInterval(refreshRigs, 15000); // refresh every 15s
+</script>

@@ -1,0 +1,191 @@
+﻿@model List<DDRigWeb.Models.RigBarModel>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    @*<title>@ViewBag.Title</title>*@
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap; /* allows stacking if screen is small */
+        }
+
+        .containerM {
+            width: 850px; /* smaller width */
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            padding: 25px;
+        }
+
+        .header {
+            background: #000;
+            color: #fff;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 4px 4px 0 0;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-size: 50px;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 90px; /* readable, not huge */
+            width: 100%; /* fills most of container */
+            max-width: 850px; /* cap width */
+            text-align: center;
+            /*box-sizing: border-box;*/ /* includes padding/border in width */
+        }
+
+        input[class="textCell"] {
+            padding: 10px;
+            font-size: 180px; /* readable, not huge */
+            width: 100%; /* fills most of container */
+            max-width: 850px; /* cap width */
+            text-align: center;
+            /*box-sizing: border-box;*/ /* includes padding/border in width */
+        }
+        /* Dynamic Status Box */
+        .status-box {
+            /* width: 100%;*/
+            height: 80px; /* smaller height */
+            margin-top: 15px;
+            border-radius: 8px;
+            border: 2px solid #000;
+        }
+
+        /* Status Colors */
+        .empty {
+            background: #7f8c8d; /* Grey */
+        }
+
+        .testing {
+            background: #2ecc71; /* Orange */      
+            font-size: 60px; /* make text bigger */
+            font-weight: bold; /* make it bold */
+            text-align: center;
+            line-height: 75px; /* vertically center if fixed height */
+        }
+
+        .checking {
+            background: #3498db; /* Blue */
+        }
+
+        .paased {
+            background: #2ecc71; /* Green */
+        }
+
+        .failed {
+            background: #e74c3c; /* Red */
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="wrapper">
+        <!-- Monitor 1 -->
+        <div class="containerM">
+            <div class="header">MONITOR 1</div>
+
+            <div class="form-group">
+                <input type="text" id="sn1_1" value="@Model[0].CASerial1" />
+            </div>
+            <div class="form-group">
+                <input type="text" id="sn2_1" value="@Model[0].CASerial2" />
+            </div>
+            <div class="form-group">
+                <input class="textCell" type="text" id="monibay_1" value="@Model[0].Text1" />
+            </div>
+            <div id="statusBox1" class="status-box empty"></div>
+        </div>
+
+        <!-- Monitor 2 -->
+        <div class="containerM">
+            <div class="header">MONITOR 2</div>
+
+            <div class="form-group">
+                <input type="text" id="sn1_2" value="@Model[1].CASerial1" />
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="sn2_2" value="@Model[1].CASerial2" />
+            </div>
+            <div class="form-group">
+                <input class="textCell" type="text" id="monibay_2" value="@Model[1].Text1" />
+            </div>
+            <div id="statusBox2" class="status-box empty"></div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    function refreshData() {
+        $.get("@Url.Action("GetLatestData", "RigDashB")", function (data) {
+            if (data.length > 0) {
+                // Monitor 1
+                $("#sn1_1").val(data[0].CASerial1);
+                $("#sn2_1").val(data[0].CASerial2);
+                $("#monibay_1").val(data[0].Text1);
+                updateStatusBox("#statusBox1", data[0].Status, data[0].Text2);
+
+                // Monitor 2
+                if (data.length > 1) {
+                    $("#sn1_2").val(data[1].CASerial1);
+                    $("#sn2_2").val(data[1].CASerial2);
+                    $("#monibay_2").val(data[1].Text1);
+                    updateStatusBox("#statusBox2", data[1].Status, data[1].Text2);
+                }
+            }
+        });
+    }
+
+    function updateStatusBox(boxId, status,Locat) {
+        var box = $(boxId);
+        box.removeClass("empty testing checking finish failed");
+      
+        switch (status) {
+            case "N": {
+                box.addClass("empty");
+                box.text("");
+                break;
+                    }
+            case "Y": {
+                box.addClass("testing");
+                box.text(Locat+ " COMPLETED " );
+                break;
+            }
+               
+        }
+    }
+
+    // Run every 2 seconds
+    setInterval(refreshData, 500);
+    refreshData(); // initial load
+</script>
